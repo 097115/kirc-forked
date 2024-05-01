@@ -698,33 +698,6 @@ static void message_wrap(param p)
     }
 }
 
-static inline void param_print_nick(param p)
-{
-    printf("\x1b[35;1m%*s\x1b[0m ", p->nicklen - 4, p->nickname);
-    printf("--> \x1b[35;1m%s\x1b[0m", p->message);
-}
-
-static void param_print_part(param p)
-{
-    printf("%*s<-- \x1b[34;1m%s\x1b[0m", p->nicklen - 3, "", p->nickname);
-    if (p->channel != NULL && strcmp(p->channel + 1, chan)) {
-        printf(" [\x1b[33m%s\x1b[0m] ", p->channel);
-    }
-}
-
-static inline void param_print_quit(param p)
-{
-    printf("%*s<<< \x1b[34;1m%s\x1b[0m", p->nicklen - 3, "", p->nickname);
-}
-
-static void param_print_join(param p)
-{
-    printf("%*s--> \x1b[32;1m%s\x1b[0m", p->nicklen - 3, "", p->nickname);
-    if (p->channel != NULL && strcmp(p->channel + 1, chan)) {
-        printf(" [\x1b[33m%s\x1b[0m] ", p->channel);
-    }
-}
-
 static void print_error(char *fmt, ...)
 {
     va_list ap;
@@ -1059,20 +1032,12 @@ static void raw_parser(char *string)
         return;
     }
     if (!strncmp(p.command, "QUIT", 4)) {
-        param_print_quit(&p);
-        printf("\x1b[0m\r\n");
         return;
     }if (!strncmp(p.command, "PART", 4)) {
-        param_print_part(&p);
-        printf("\x1b[0m\r\n");
         return;
     }if (!strncmp(p.command, "JOIN", 4)) {
-        param_print_join(&p);
-        printf("\x1b[0m\r\n");
         return;
     }if (!strncmp(p.command, "NICK", 4)) {
-        param_print_nick(&p);
-        printf("\x1b[0m\r\n");
         return;
     }if (!strncmp(p.command, "PRIVMSG", 7)) {
         param_print_private(&p);
