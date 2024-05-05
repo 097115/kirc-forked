@@ -682,6 +682,11 @@ static void message_wrap(param p)
     cur = p->message;
     size_t len = 0;
     size_t i;
+    int bot = 0;
+    if (strchr(cur, '\x03') != NULL) {
+        printf("\x1b[38;2;88;88;88m");
+        bot = 1;
+    }
 
     // iterate message by tokens (words)
     for (tok = strtok(p->message, " "); tok != NULL; tok = strtok(NULL, " ")) {
@@ -719,6 +724,9 @@ static void message_wrap(param p)
             // ...and re-set the tokens' length
             len = strlen(tok);
         }
+    }
+    if (bot == 1) {
+        printf("\x1b[0m");
     }
 }
 
