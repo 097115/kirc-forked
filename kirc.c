@@ -604,17 +604,7 @@ static void log_append(char *str, char *path)
         exit(1);
     }
     ctime_now(buf);
-    fprintf(out, "%s:", buf);
-    while (*str != '\0') {
-        if (*str >= 32 && *str < 127) {
-            fwrite(str, sizeof(char), 1, out);
-        } else if (*str == 3 || *str == 4) {
-            str++;
-        } else if (*str == '\n') {
-            fwrite("\n", sizeof(char), 1, out);
-        }
-        str++;
-    };
+    fprintf(out, "%s:%s", buf, str);
     fclose(out);
 }
 
