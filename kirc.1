@@ -63,40 +63,73 @@ received.
 .BI /<command>
 Send message to IRC host (e.g. /JOIN, /PART, /WHOIS, etc.)
 .TP
-.BI /setprivmsg <nick>
-Set privmsg target. Useful when sending privmsg's to a nick instead of a chan.
+.BI /<#channel>
+Set default destination to
+.I
+<channel>
 .TP
-.BI // " <text>"
-Send text to current channel (useful when sending '@' and '/', usually to bots)
-.TP
-.BI /#<channel>
-Set default message channel to <channel>
+.BI /<!nick>
+Set default destination to
+.I <nick>
 .TP
 .BI <message>
-Send PRIVMSG to default message channel with <message> as the content
+Send
+.I <message> 
+to default destination
 .TP
-.BI @<channel|nick> " <message>"
+.BI //<message>
+Send
+.I <message> 
+to default destination. Useful when
+.I <message>
+starts with special characters (e.g. @ or / ), usually to bots
+.TP
+.BI @<#channel|nick> " <message>"
 Send
 .I <message>
-to specified
+to
 .I <channel>
 or
 .I <nick>
 .TP
-.BI /action <channel|nick> " <message>"
-Send CTCP ACTION containing
+.BI /action|me " [<#channel|nick>] <message>"
+Send ACTION containing
 .I <message>
-to specified
+to
 .I <channel>
 or
-.I <nick>
-(if no 
+.I <nick>\fR. If no
 .I <channel> 
-or 
+or
 .I <nick> 
-is specified, the 
+is specified, the
 .I <message> 
-will be sent to the default message channel)
+will be sent to default destination
+.SH ALIASES
+.TP
+.BI /j " <#channel>"
+Run /JOIN 
+.I
+<#channel>
+.TP
+.BI /p " <#channel>"
+Run /PART 
+.I
+<#channel>
+.TP
+.BI /w " <nick>"
+Run /WHOIS 
+.I
+<nick>
+.TP
+.BI /q " <nick> <message>"
+Send
+.I <message> 
+to
+.I <nick>
+and set default destination to
+.I <nick>\fR (i.e. open a query with \fI<nick>\fR)
+
 .SH AUTHOR
 Michael Czigler <michaelczigler at icloud dot com>
 .SH BUGS
